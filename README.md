@@ -243,15 +243,13 @@ OpenLANE flow consists of several stages. By default, all flow steps are run in 
 
 The Skywater PDK files we are working with are described under $PDK_ROOT. There are three subdirectories needed for the workshop:
 
-![](/images/1.png)
+![D1_1](https://github.com/Aatish-Om/pes_pd/assets/125562864/904fbae0-2d14-4e1a-a2d4-086644524899)
 
   1. Skywater-pdk – Contains all the foundry provided PDK related files
   2. Open_pdks – Contains scripts that are used to bridge the gap between closed-source and open-source PDK to EDA tool compatibility
   3. Sky130A – The open-source compatible PDK files
 
 ### Invoking OpenLane
-
-![](/images/2.png)
 
   - ./flow.tcl is the script which runs the OpenLANE flow
   - OpenLANE can be run interactively or in autonomous mode 
@@ -260,45 +258,58 @@ The Skywater PDK files we are working with are described under $PDK_ROOT. There 
 ### Package Importing
 Different software dependencies are needed to run OpenLANE. To import these into the OpenLANE tool we need to run:
 
-![](/images/3.png)
+![D1_2](https://github.com/Aatish-Om/pes_pd/assets/125562864/919a9ddc-d775-4ba5-8ce8-380bc813aa72)
+
+
+
 
 ### Design Folder
 All designs run within OpenLANE are extracted from the openlane/designs folder:
 
-![](/images/4.png)
+![D1_3](https://github.com/Aatish-Om/pes_pd/assets/125562864/b1a3e9ab-d6b3-4990-b3f6-a8b76ca0a2bf)
+
+
+
 
 ### Design Folder Hierarchy
 
-![](/images/5.png)
+![D1_4](https://github.com/Aatish-Om/pes_pd/assets/125562864/9532f108-d4c3-4e6a-89a3-0f58cd7339ac)
+
+
+
 
 Each design hierarchy comes with two distinct components:
   1. Src folder - Contains verilog files and sdc constraint files
   2. Config.tcl files - Design specific configuration switches used by OpenLANE
 
-An example of a configuration file is given:
 
-  ![](/images/6.png)
 
 ### Prepare Design
 Prep is used to make file structure for our design. To set this up do:
 
-  ![](/images/7.png)
+![D1_5](https://github.com/Aatish-Om/pes_pd/assets/125562864/8197ef61-b934-43c8-97b7-6e57062cd821)
+
 
 After running this look in the openlane/design/picro32a folder and you will see there is a new directory structure created in this folder under the runs folder so to enable OpenLANE flow:
 
-  ![](/images/8.png)
+![D1_7](https://github.com/Aatish-Om/pes_pd/assets/125562864/29d1ec71-de10-4a69-983a-11ba3fe827e7)
+
+
+
 
 The config.tcl file shown in this folder contains all the parameters used by OpenLANE for this specific run.
 
 In addition, preparing the design in OpenLANE merges the technology LEF and cell LEF information. Technology LEF information contains layer definitions and a set of restricted design rules needed for PnR flow. The cell LEF contains obstruction information of each standard cell needed to minimize DRC errors during PnR flow:
 
-  ![](/images/9.png)
+![9](https://github.com/Aatish-Om/pes_pd/assets/125562864/ad4caa11-5d5f-4e08-b14a-52ea5109dc76)
+
 
 ### Synthesis
 
 To run synthesis:
 
-  ![](/images/10.png)
+  ![10](https://github.com/Aatish-Om/pes_pd/assets/125562864/e5869974-a9a2-48b1-a129-892b5bce9753)
+
 
 Note: Ensure the WNS is an acceptable number, if not please adjust the clock period to fix STA errors.
 
@@ -338,9 +349,9 @@ Pin placement is an essential part of floorplanning to minimize buffering and im
 
 To run floorplan in OpenLANE:
 
-  ![](/images/11.png)
-
+```% run_floorplan_```
 As with all other stages, the floorplanning will be run according to configuration settings in the design specific config.tcl file. The output the the floorplanning phase is a DEF file which describes core area and placement of standard cell SITES:
+![9](https://github.com/Aatish-Om/pes_pd/assets/125562864/ad4caa11-5d5f-4e08-b14a-52ea5109dc76)
 
   ![](/images/12.png)
 
@@ -350,10 +361,10 @@ To view our floorplan in Magic we need to provide three files as input:
   1. Magic technology file (sky130A.tech)
   2. Def file of floorplan
   3. Merged LEF file
+![D2_3](https://github.com/Aatish-Om/pes_pd/assets/125562864/e411dc76-9bfe-4576-841b-3e879f8c32e4)
 
-  ![](/images/13.png)
-    
-  ![](/images/14.png)
+![D2_2](https://github.com/Aatish-Om/pes_pd/assets/125562864/eff3c2b9-0ec6-4107-8f39-26b05b68615b)
+
 
 
 ### Placement
@@ -364,20 +375,19 @@ The next step in the Digital ASIC design flow after floorplanning is placement. 
   2. Detailed Placement - Legalizes placement of cells into standard cell rows while adhering to global placement
 
 To do placement in OpenLANE:
+``` %run_placement```
 
-  ![](/images/15.png)
 
 For placement to converge the overflow value needs to be converging to 0. At the end of placement cell legalization will be reported:
+![16](https://github.com/Aatish-Om/pes_pd/assets/125562864/eb29291f-1f39-45e8-9f04-5474f9434089)
 
-  ![](/images/16.png)
 
 ### Viewing Placement in Magic
 
 To view placement in Magic the command mirrors viewing floorplanning:
+![D2_4](https://github.com/Aatish-Om/pes_pd/assets/125562864/282b8545-2559-4acc-9e5a-4d819e249ea0)
 
-  ![](/images/17.png)
-  
-  ![](/images/18.png)
+![D2_5](https://github.com/Aatish-Om/pes_pd/assets/125562864/3107e173-fe17-4846-986b-e92b0901e529)
 
 ### Standard Cell Design Flow
 
