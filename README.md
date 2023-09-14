@@ -9,7 +9,6 @@
   <h3 align="center">Advanced Physical Design - OpenLANE Workshop</h3>
 </p>
 
-https://gitlab.com/gab13c/openlane-workshop/-/blob/master/README.md?plain=0
 
 <!-- TABLE OF CONTENTS -->
 <details open="open">
