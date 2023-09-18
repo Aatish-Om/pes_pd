@@ -120,55 +120,162 @@ To get a local copy up and running follow these simple example steps.
   1. Ubuntu OS-based System
   2. 25GB+ Disk Space
 
-### Installation
+## Inception of open-source EDA, OpenLANE and Sky130 PDK
+ How to talk to computers 
 
-Please refer to: https://github.com/nickson-jose/openlane_build_script for installation steps
+### Introduction to QFN-48 Package, chip, pads, core, die and IPs
 
-## RTL to GDSII Introduction
+Lets take an example of an Arduino Board,An Arduino board is a small computer that you can use to control and interact with electronic devices. It's a physical platform that allows you to write and upload programs (called "sketches") to make things like lights, motors, sensors, and other components work together.
+we take an Arduino board since we will be working with something similar, **we will be talking about a field which is lying inside the chip shown below**:
 
-From conception to product, the ASIC design flow is an iterative process that is not static for every design. The details of the flow may change depending on ECO’s, IP requirements, DFT insertion, and SDC constraints, however the base concepts still remain. The flow can be broken down into 11 steps:
+![image](https://github.com/Tawfeeq2507/pes_pd/assets/142083027/0783c87c-1949-4fa8-8a9b-b6fb487ad22c)
 
-  1. Architectural Design – A system engineer will provide the VLSI engineer with specifications for the system that are determined through physical constraints. The VLSI engineer will be required to design a circuit that meets these constraints at a microarchitecture modeling level.
+- if we want to desgin this particular Arduino board, we can describe it in a form of a block diagram shown below:
 
-  2. RTL Design/Behavioral Modeling – RTL design and behavioral modeling are performed with a hardware description language (HDL). EDA tools will use the HDL to perform mapping of higher-level components to the transistor level needed for physical implementation. HDL modeling is normally performed using either Verilog or VHDL. One of two design methods may be employed while creating the HDL of a microarchitecture:
+![image](https://github.com/Tawfeeq2507/pes_pd/assets/142083027/5f0aa3ef-2b05-414d-9234-ddc4d438b5ec)
 
-      a. 	RTL Design – Stands for Register Transfer Level. It provides an abstraction of the digital   circuit using:
-      
-      <ul>
-        <li>i. 	Combinational logic</li>
-        <li>ii. 	Registers</li>
-        <li>iii. 	Modules (IP’s or Soft Macros)</li>
-      </ul>
+- the highlighted area of the chip is nothing but the processor shown above and along with the processors we have all the interfaces that we see around the particular processor.
+- This is the typical arduino board diagram looks like.
 
-      b. 	Behavioral Modeling – Allows the microarchitecture modeling to be performed with behavior-based modeling in HDL. This method bridges the gap between C and HDL allowing HDL design to be performed
+we wont be talking about the embedded desgin and rather will be looking into the chip desgining.
 
-  3. RTL Verification - Behavioral verification of design
+when we open up the IC it looks something like this shown below:
 
-  4. DFT Insertion - Design-for-Test Circuit Insertion
+![image](https://github.com/Tawfeeq2507/pes_pd/assets/142083027/049a19cc-766c-46f6-9879-ca05b3c9ae8b)
 
-  5. Logic Synthesis – Logic synthesis uses the RTL netlist to perform HDL technology mapping. The synthesis process is normally performed in two major steps:
+what we see above is usually what we call a **"chip"**, but its known as a **"PACKAGE"**, these packages have been assigned with certain names for ex: we see that the above package is named **"QNF-48"**.Similarly there are multiple packages in the market with different flavours and pins.
+- Here the pin loacations of the particular package are all given by the particular arduino board.
+- the package seen above has a size of 7mm x 7mm
 
-  <ul>
-      <li> GTECH Mapping – Consists of mapping the HDL netlist to generic gates what are used to perform logical optimization based on AIGERs and other topologies created from the generic mapped netlist.</li>
-      <li>Technology Mapping – Consists of mapping the post-optimized GTECH netlist to standard cells described in the PDK</li>
-  </ul>
-        
-Standard Cells – Standard cells are fixed height and a multiple of unit size width. This width is an integer multiple of the SITE size or the PR boundary. Each standard cell comes with SPICE, HDL, liberty, layout (detailed and abstract) files used by different tools at different stages in the RTL2GDS flow.
+- the main Brain of the package the chip sits in the middle of the package and the way the chip is connected to the package is shown below:
 
-  6. Post-Synthesis STA Analysis: Performs setup analysis on different path groups.
+![image](https://github.com/Tawfeeq2507/pes_pd/assets/142083027/9ff58809-bd74-41fa-9043-cb09f788ed90)
 
-  7. Floorplanning – Goal is to plan the silicon area and create a robust power distribution network (PDN) to power each of the individual components of the synthesized netlist. In addition, macro placement and blockages must be defined before placement occurs to ensure a legalized GDS file. In power planning we create the ring which is connected to the pads which brings power around the edges of the chip. We also include power straps to bring power to the middle of the chip using higher metal layers which reduces IR drop and electro-migration problem.
+- Here we have used **"wire bounds"** to connect the pins to the boundaries of the Chip, In this way we are able to transfer all the signal from outside world into the chip.
 
-  8. Placement – Place the standard cells on the floorplane rows, aligned with sites defined in the technology lef file. Placement is done in two steps: Global and Detailed. In Global placement tries to find optimal position for all cells but they may be overlapping and not aligned to rows, detailed placement takes the global placement and legalizes all of the placements trying to adhere to what the global placement wants.
+When we Open the chip it looks like this shown below:
 
-  9. CTS – Clock tree synteshsis is used to create the clock distribution network that is used to deliver the clock to all sequential elements. The main goal is to create a network with minimal skew across the chip. H-trees are a common network topology that is used to achieve this goal.
+![image](https://github.com/Tawfeeq2507/pes_pd/assets/142083027/f90561ac-8bc0-4f3f-9ab0-6c4cf846bb62)
 
-  10.  Routing – Implements the interconnect system between standard cells using the remaining available metal layers after CTS and PDN generation. The routing is performed on routing grids to ensure minimal DRC errors.
-    
-The Skywater 130nm PDK uses 6 metal layers to perform CTS, PDN generation, and interconnect routing.
-Shown below is an example of a base RTL to GDS flow in ASIC design:
+- The chip that is shown above has many various components and one of the Important componants is the **"PADs"**.
+- **"PADs"** in a chip are like the little metal feet or points on the bottom of the chip. They're used to connect the chip to a circuit through which we can send the outside signal into the chip so it can do its job.
+- the Middle free space area seen above inside is known as the **"Core"** of the chip.
+- **"Core"** of a chip is like the brain of the chip. It's the central part that does most of the actual thinking and processing of information.Its a place where all our Digital logical sits,ex:AND gate,OR gate,MUXs,etc.
+- the size of the chip is known as the **"Die"**.
+- **"Die"** is like the heart of a computer chip. It's a tiny, flat piece of silicon that contains the actual electronic circuits. It's where all the important computations and operations happen.This the Die that gets manufactured on the **"Silicon Wafer"**.
 
-![](/images/asic_flow.png)
+The typical **Core** of a CHIP consists of an SoC(we will be working with RISC-V SoC),SRAM,ADCs,DACs,PLL,SPI and couple of components shown below:
+
+![image](https://github.com/Tawfeeq2507/pes_pd/assets/142083027/e88f8c8a-3d09-4555-8b92-89a7bb29b5e9)
+
+- these SRAM,ADC,DAC,PLL all together are known As **"Foundry IP's(Intellectual Properties)"**
+- **Foundry** is an important term in chip Designing Chips, all our devices,mobiles,everything is depended on the Foundry's.
+- Foundry is a place where the chips are manufactured, Foundry's are set of machines that we communicate with.
+- The digital Blocks placed the SoC and the SPI are basically called as **"Macros"**.
+
+### What is RISC-V?
+**"RISC-V intruction set architecture"** popularly known as **"ISA"**.It is nothing but a language of the computer,a way through which we are able to talk and communicate with the computers.RISC-V is an open-source instruction set architecture (ISA) based on established reduced instruction set computing (RISC) principles. An instruction set architecture is essentially the set of instructions that a computer's processor can execute. 
+
+For a C program to run on a computer hardware which has got a particular Layout(qFlow), where this layout is nothing but interior of a chip present inside our devices,There are certain flow to pass the C program to the layout.
+
+
+
+- here the C program is first compiled in its assembly language program which is nothing but the RISC-V assembly language program.
+- this Aseembly language program is then converted into machine language program aka the binary language program(ie: 1's and 0's) which is understood by the hardware of the computer.
+- here the codes in hexadecimal format but in real term they are in binary format, therefore this needs to be converted into binary format.
+- after converting these bits gets finnaly executed in the layout and get the required output.
+
+
+Another layer present betweeen the C pragram and the layout is the **"HDL(Hardware discriptive language)"**.
+
+#### What is HDL?
+**"HDL"** stands for **Hardware Description Language**. It's a specialized programming language used to describe the structure and behavior of electronic circuits and systems. HDLs are used in the design, simulation, and synthesis of digital circuits, such as those found in microprocessors, memory chips, and other integrated circuits.
+There are two main types of HDLs:
+ 1)**Verilog**: Developed by Phil Moorby and Prabhu Goel in the 1980s
+ 2)**VHDL (VHSIC Hardware Description Language)**:Developed by the U.S. Department of Defense in the 1980s
+
+
+- To Implement these RISC-V specifications we need **RTL(Register-Transfer Level)**,in this case shown below the RTL used is **picorv32 cpu core**
+
+![image](https://github.com/Tawfeeq2507/pes_pd/assets/142083027/f8e12d12-72af-4d9a-b951-14769924a11f)
+
+
+- this RTL implments these RISC-V specifications.
+- and from here its RTL-GDS flow
+
+### From Software Applications to Hardware 
+
+Any **application software** or aka **"Apps"** run on **Hardware**... but how does this happen??
+
+- First the Application software enters the Blocks called the **System Software**,where the system software intern converts the application program into the binary language.
+- the Major components of **"System Software"** concists of the OS(Operating system),Assembler,compiler.
+- The **"Opertaing system:** handles lots of things, it handles the IO operations,allocate memory, low level system functions, OS also helps in taking the application program and converting it into its respective assembly language and finally inot binary program that is understood by the hardware.
+- The output of the OS are nothing but small functions in the given programs(C++,Java,C,python,etc).
+- these are taken by the respective **Compiler** and then converted into intstructions.
+- The syntax of these instructions depends on what kind of the hardware is,(ex if the hardware is for intel x86 then the instructions will be of intel x86 only).
+- all these instructions all together form the **.exe file**
+
+![image](https://github.com/Tawfeeq2507/pes_pd/assets/142083027/79883606-8f16-453f-a8e0-7ace2b93f68f)
+
+- The job of the **"Assembler"** is to take these instructions and convert it into its respective binary numbers aka **Machine language** program.
+- These binary numbers aka machine language is then fed to the hardware, where hardware understands the type of pattern of the machine language and does the respective operation.
+
+This is the flow how the application software runs through many different layers before entering the hardware.
+
+lets take an example of a application of "stop watch".
+
+- the C program for the stop watch enters the compiler and the output of the compiler will be intructions based on the type of the hardware(ex RISC-V) therefore the instructions will be of RISC-V.
+- these intructions go into the assembler as a .exe file which gives the output in form of machine language.
+- these hexadecimals are converted into binary before entering into the hardware.
+
+![image](https://github.com/Tawfeeq2507/pes_pd/assets/142083027/cd3ff2fc-9fd5-4a77-b1f2-4daa50b6ba1f)
+
+- in general terms these binary numbers are entering into the chip layout and the functions are performed in this layout.
+
+when we take a much deeper look into the program we try to understand the RISC-V intrucstions-
+
+![image](https://github.com/Tawfeeq2507/pes_pd/assets/142083027/ac8b1be7-b508-4ee6-915e-243c495668cf)
+
+- here we see that in left we have the input to the compiler,in the left we have the output of the compiler and the output of the assembler is in hexadecimal in the middle we have assembler output.
+- the instructions after the compiler acts as an **"Abstract interface"** between the C language and the hardware, this Abstract interface is called as the **"Instruction set architecture"** or **"Architecture of the computer"**,in the case shown above its the RISC-V architecture.
+
+There is another inteface between the Assembly language and the hardware which is known as the **HDL(Hardware discriptive language**.
+
+#### What is RTL?
+
+RTL stands for Register-Transfer Level. It's a level of abstraction used in digital circuit design and describes how data moves between registers and how operations are performed on that data.In RTL design, the behavior of the digital system is defined by describing how data is transferred between registers and how operations are performed on that data. This is typically done using a hardware description language (HDL) like Verilog or VHDL.
+
+![image](https://github.com/Tawfeeq2507/pes_pd/assets/142083027/52f5c6ce-ea1a-4bf8-8b89-dc223163f440)
+
+- Our hardware only understands 1's and 0's therefore we need An RTL which implements the output of the assembly language that is the machine language into the Hardware.This is known as the RTL implementation of our instruction set.
+- This RTL is then Synthesized into a Netlist, where this Synthesized Netlist of the RTL consists of Gates,flip flops,inverters,MUX's,etc.
+- and from this Synthesized Netlist to hardware is **Physical design implementation of the Netlist**.
+
+### SoC design and OpenLANE
+
+### Introduction to all components of open-source Digital ASIC Design
+
+- To implement Digital ASIC design we require certain elements these elements are RTL IP's,EDA Tools,PDK data.
+
+**What is PDK?**
+
+- **"PDK"** a **(Process Design Kit)** is a set of files provided by semiconductor manufacturers to help designers use their fabrication process to create integrated circuits (ICs). It contains a comprehensive set of information, models, and files that enable designers to develop and verify their designs using the specific process technology offered by the manufacturer.
+
+
+**What is EDA Tools?**
+
+- **EDA** stands for **(Electronic Design Automation)**, and EDA tools refer to a category of software applications and tools used in the design and development of electronic systems, including integrated circuits (ICs), printed circuit boards (PCBs), and other electronic components.EDA tools are essential for designing and testing electronic hardware and ensuring that it functions correctly before it is manufactured.hese tools automate various aspects of the design process, making it more efficient and error-free. 
+
+![image](https://github.com/Tawfeeq2507/pes_pd/assets/142083027/e2db98f6-b946-45ef-8c33-b2ce3ea80889)
+
+- Therfore for making Open source Digital ASIC Design we have Open source for RTL IP's(librecores.org,opencores.org,github.com,etc),EDA tools(qflow,openROAD,openLANE,etc),PDK(Foss 130nm production PDK).
+
+![image](https://github.com/Tawfeeq2507/pes_pd/assets/142083027/ce2d29cb-02c9-4f40-b68b-3472527cbea1)
+
+- these 3 Elements can be used to achieve 100% open-source Digital ASIC design.
+
+- The methodology is then Implemented Through A Flow, this Flow is nothing but a piece of software known as RTL to GDS2,this is the main objective of the ASIC Design Flow which takes the design from RTL(REgister transfer level) to GDS2 format used for final layout.
+
 
 <!-- Workshop Introduction -->
 ## Workshop Introduction
@@ -181,8 +288,8 @@ The inputs to the ASIC design flow are:
     - I/O Libraries
 
 Process Design Kit (PDK) is the interface between the CAD designers and the foundry. The PDK is a collection of files used to model a fabrication process for the EDA tools used in designing an IC. PDK’s are traditionally closed-source and hence are the limiting factor to open-source Digital ASIC Design. Google and Skywater have broken this stigma and published the world’s first open-source PDK on June 30th, 2020. This breakthrough has been a catalyst for open-source EDA tools. This workshop focuses on using the open-source RTL2GDS EDA tool, OpenLANE, in conjunction with the Skywater 130nm PDK to perform the full RTL2GDS flow as shown below:
+![intro2](https://github.com/poornima-chetty/pes_pd/assets/142583396/27550243-099b-4340-b82f-91aa1e8e4802)
 
-![](/images/openlane_flow.png)
 
 OpenLANE flow consists of several stages. By default, all flow steps are run in sequence. Each stage may consist of multiple sub-stages. OpenLANE can also be run interactively as shown here.
 
@@ -242,14 +349,17 @@ OpenLANE flow consists of several stages. By default, all flow steps are run in 
 ### Skywater PDK Files
 
 The Skywater PDK files we are working with are described under $PDK_ROOT. There are three subdirectories needed for the workshop:
+![D1_1](https://github.com/Aatish-Om/pes_pd/assets/125562864/4c78c423-6931-4742-ab49-17c65e4fccd3)
 
-![D1_1](https://github.com/Aatish-Om/pes_pd/assets/125562864/904fbae0-2d14-4e1a-a2d4-086644524899)
 
   1. Skywater-pdk – Contains all the foundry provided PDK related files
   2. Open_pdks – Contains scripts that are used to bridge the gap between closed-source and open-source PDK to EDA tool compatibility
   3. Sky130A – The open-source compatible PDK files
 
 ### Invoking OpenLane
+![aatd12](https://github.com/Aatish-Om/pes_pd/assets/125562864/011cd810-8f6f-4084-9eb5-8572d2ba8ad6)
+
+
 
   - ./flow.tcl is the script which runs the OpenLANE flow
   - OpenLANE can be run interactively or in autonomous mode 
@@ -257,25 +367,16 @@ The Skywater PDK files we are working with are described under $PDK_ROOT. There 
 
 ### Package Importing
 Different software dependencies are needed to run OpenLANE. To import these into the OpenLANE tool we need to run:
-
-![D1_2](https://github.com/Aatish-Om/pes_pd/assets/125562864/919a9ddc-d775-4ba5-8ce8-380bc813aa72)
-
-
+![aatd13](https://github.com/Aatish-Om/pes_pd/assets/125562864/ca6670af-b2a2-4741-befd-625a190f05ae)
 
 
 ### Design Folder
 All designs run within OpenLANE are extracted from the openlane/designs folder:
-
-![D1_3](https://github.com/Aatish-Om/pes_pd/assets/125562864/b1a3e9ab-d6b3-4990-b3f6-a8b76ca0a2bf)
-
-
+![aatd141](https://github.com/Aatish-Om/pes_pd/assets/125562864/14029405-b1dc-4c0a-af1d-90916b9ae413)
 
 
 ### Design Folder Hierarchy
-
-![D1_4](https://github.com/Aatish-Om/pes_pd/assets/125562864/9532f108-d4c3-4e6a-89a3-0f58cd7339ac)
-
-
+![aatd14](https://github.com/Aatish-Om/pes_pd/assets/125562864/bac620ec-9286-4c26-b8a9-66d72e463222)
 
 
 Each design hierarchy comes with two distinct components:
@@ -286,29 +387,24 @@ Each design hierarchy comes with two distinct components:
 
 ### Prepare Design
 Prep is used to make file structure for our design. To set this up do:
-
-![D1_5](https://github.com/Aatish-Om/pes_pd/assets/125562864/8197ef61-b934-43c8-97b7-6e57062cd821)
+![aatd15](https://github.com/Aatish-Om/pes_pd/assets/125562864/3d750568-9210-46b5-81a8-bdad53dadbfb)
 
 
 After running this look in the openlane/design/picro32a folder and you will see there is a new directory structure created in this folder under the runs folder so to enable OpenLANE flow:
-
-![D1_7](https://github.com/Aatish-Om/pes_pd/assets/125562864/29d1ec71-de10-4a69-983a-11ba3fe827e7)
-
-
+![aatd16](https://github.com/Aatish-Om/pes_pd/assets/125562864/8fd3c2ce-769f-4ea8-b940-ae58b3706e52)
 
 
 The config.tcl file shown in this folder contains all the parameters used by OpenLANE for this specific run.
 
 In addition, preparing the design in OpenLANE merges the technology LEF and cell LEF information. Technology LEF information contains layer definitions and a set of restricted design rules needed for PnR flow. The cell LEF contains obstruction information of each standard cell needed to minimize DRC errors during PnR flow:
 
-![9](https://github.com/Aatish-Om/pes_pd/assets/125562864/ad4caa11-5d5f-4e08-b14a-52ea5109dc76)
+![aatd17](https://github.com/Aatish-Om/pes_pd/assets/125562864/d87d84c5-6af6-426f-b06a-e321c24ac6c8)
 
 
 ### Synthesis
 
 To run synthesis:
-
-  ![10](https://github.com/Aatish-Om/pes_pd/assets/125562864/e5869974-a9a2-48b1-a129-892b5bce9753)
+![aatd18](https://github.com/Aatish-Om/pes_pd/assets/125562864/6ffe2bad-a394-466c-a873-611b0df933c7)
 
 
 Note: Ensure the WNS is an acceptable number, if not please adjust the clock period to fix STA errors.
@@ -349,11 +445,10 @@ Pin placement is an essential part of floorplanning to minimize buffering and im
 
 To run floorplan in OpenLANE:
 
-```% run_floorplan_```
+``` % run_floorplam_ ```
 As with all other stages, the floorplanning will be run according to configuration settings in the design specific config.tcl file. The output the the floorplanning phase is a DEF file which describes core area and placement of standard cell SITES:
-![9](https://github.com/Aatish-Om/pes_pd/assets/125562864/ad4caa11-5d5f-4e08-b14a-52ea5109dc76)
+![aatd21](https://github.com/Aatish-Om/pes_pd/assets/125562864/f2c65392-d031-428c-a90e-140daf6ac04c)
 
-  ![](/images/12.png)
 
 ### Viewing Floorplan in Magic
 To view our floorplan in Magic we need to provide three files as input:
@@ -361,10 +456,10 @@ To view our floorplan in Magic we need to provide three files as input:
   1. Magic technology file (sky130A.tech)
   2. Def file of floorplan
   3. Merged LEF file
-![D2_3](https://github.com/Aatish-Om/pes_pd/assets/125562864/e411dc76-9bfe-4576-841b-3e879f8c32e4)
 
-![D2_2](https://github.com/Aatish-Om/pes_pd/assets/125562864/eff3c2b9-0ec6-4107-8f39-26b05b68615b)
+![aatd22](https://github.com/Aatish-Om/pes_pd/assets/125562864/e5109dda-89ae-4198-aebc-09ffacc061ad)
 
+![D2_2](https://github.com/poornima-chetty/pes_pd/assets/142583396/e4363ffb-a39d-4223-9908-f114267686d1)
 
 
 ### Placement
@@ -375,19 +470,21 @@ The next step in the Digital ASIC design flow after floorplanning is placement. 
   2. Detailed Placement - Legalizes placement of cells into standard cell rows while adhering to global placement
 
 To do placement in OpenLANE:
-``` %run_placement```
 
-
+``` % run_placement ```
 For placement to converge the overflow value needs to be converging to 0. At the end of placement cell legalization will be reported:
-![16](https://github.com/Aatish-Om/pes_pd/assets/125562864/eb29291f-1f39-45e8-9f04-5474f9434089)
+
+![16](https://github.com/poornima-chetty/pes_pd/assets/142583396/8b1fd990-48a4-4341-a8b2-1e80a7380a69)
 
 
 ### Viewing Placement in Magic
 
 To view placement in Magic the command mirrors viewing floorplanning:
-![D2_4](https://github.com/Aatish-Om/pes_pd/assets/125562864/282b8545-2559-4acc-9e5a-4d819e249ea0)
 
-![D2_5](https://github.com/Aatish-Om/pes_pd/assets/125562864/3107e173-fe17-4846-986b-e92b0901e529)
+![aatd23](https://github.com/Aatish-Om/pes_pd/assets/125562864/23806e92-af11-4dd7-b1e3-0ae30bae3d89)
+
+![D2_5](https://github.com/poornima-chetty/pes_pd/assets/142583396/35d5b523-6b50-4155-9211-534593417a4d)
+
 
 ### Standard Cell Design Flow
 
@@ -412,307 +509,447 @@ Characterization is a well-defined flow consisting of the following steps:
   7. Provide necessary simulation commands 
 
 <!-- Day 3 Design Library Cell -->
-## Day 3 Design Library Cell
+# Day 3
+## Labs for CMOS inverter ngspice simulations
+**IO Placer Revision**
+
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/fabe5ca4-7dde-43f9-a8e4-260ed11ed820)
+- The following command can be typed to change the I/O pins placemnt configuration.
+
+## Inception of Layout and CMOS Fabrication Process
+**SPICE Deck Creation for CMOS Inverter**
+- SPICE Deck is a netlist that has information on:
+  - component connectivity 
+  - component values
+  - identifying the nodes
+  - giving a designation to the nodes
+
+**SPICE Simulation and Switching Threshold**
+
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/29e6f5c4-d166-4283-85c2-81947d29f165)
+- The CMOS on the right side has a bigger size than the one on the left.
+- These waveforms tell us that the CMOS is a very robust device. The characteristics of the CMOS are maintained across a variety of sizes.
+- The arrow is pointing to the point where 'Vin = Vout'.
+
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/247e37b7-b3b3-4036-9eaf-2c5380a6c71a)
+- Above graph gives details on each point and its significance
+
+**A Git Clone and some other Steps**
+
+- We need to perform a git clone here from a repository that we require, to do the future labs.
+- We can type the following command
+```
+git clone https://github.com/nickson-jose/vsdstdcelldesign.git
+```
+
+- Now we need to copy the 'sky130A.tech' file into the directory we just cloned
+- We can do this by using
+```
+cp sky130A.tech /home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/vsdstdcelldesign
+```
+in the follwoing directory shown in the figure
+![aatd31](https://github.com/Aatish-Om/pes_pd/assets/125562864/04b7b6df-648e-4927-a106-cc887ecda037)
+
+
+**16 Mask CMOS Process**
+1) Selecting a Substrate - Selecting the appropriate substrate to synthsize the design on.
+2) Creating active reagion for transistors - Adding layers of SiO2(40nm), Si3N4(80nm) and photoresist(1um). On top of the photoresist we put a mask layer. Pass UV light and remove the mask. Resist is removed. LOCOS(Local Oxidation of Silicon) is performed. Si3N4 is etched.
+3) N-Well and P-Well formation - The next masks are used to create the source and drain regions of the MOSFETs. Boron is used to make P-Well using ion implantation. Phosphorus is used to create N-Well. Put the MOSFET in a Drive In furnace.
+4) Formation of Gate - Gate formation involves depositing a gate oxide, defining gate patterns using photolithography, depositing gate material, etching to create gates, doping the substrate and insulating the gates.
+5) Lightly Doped Drain Formation(LDD) - Lightly doped drain (LDD) formation involves implanting the drain and source regions of a MOSFET transistor with a lighter concentration of dopants to reduce hot electron effect and short channel effect and enhance device performance.
+6) Source and Drain Formation - Source and drain formation in a MOSFET transistor typically involves doping the silicon substrate with chemicals such as arsenic or phosphorous for n-type regions (source and drain) and boron for p-type regions (source and drain). High temperature annealing is performed.
+7) Steps to form Contacts and Interconnects(local) - Titanium is deposited with a process known as sputtering. Wafer is heated to about 650 - 700 C in an N2 ambient furnace for 60 seconds. TiSi2 contacts are formed.  TiN is also formed used for local communication. TiN is etched using RCA cleaning.
+8) Higher Level Metal Formation - Forming contacts and interconnects locally involves depositing a dielectric material like silicon dioxide, patterning it using photolithography, etching contact holes, depositing a barrier metal (e.g., titanium or titanium nitride), filling with a conductor (e.g., aluminum or copper) using chemical vapor deposition (CVD), and then planarizing through chemical-mechanical polishing (CMP).
+
+**Sky130 Basic Layers Layout and LEF using Inverter**
+- Now let us look at the layout of a CMOS inverter. To open this we type the command
+![aatd32](https://github.com/Aatish-Om/pes_pd/assets/125562864/0a9a6df6-70c8-441e-8e57-fd2277a89045)
+
+```
+ magic -T sky130A.tech sky130_inv.mag &
+```
+
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/4544d764-7b49-4b1f-b3d7-0ae61961bd81)
+- The following layout is displayed.
+
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/f10146f9-71a2-4d15-b377-43a72034b9fc)
+- We can get to know the details of the inverter by hovering the mouse cursor over it and pressing 's' on the keyboard. Then we can type ```what``` in the tkcon.
+- Pressing 's' three times will show what parts are connected to the selected part.
+
+- We shall look at the difference between LEF and Layout. The above image is a Layout.
+- LEF represents abstract component data in a machine-readable format for IC libraries, while layout is the physical geometric arrangement of these components on a semiconductor chip.
+
+**Steps to Create Standard Cell Layout and Extract Spice Netlist**
+
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/aa5b0d26-1711-4fb3-84ff-817ca929110f)
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/7a2bca47-28d8-4c2e-96cd-4fdcb983fcf0)
+- DRC errors can be viewed in the tkcon.
+
+To extract Spice Netlist we perform the following steps in the tkcon window:
+
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/deb99366-4eb3-40b6-8172-ecce6962db33)
+- We use the commands
+```
+ext2spice cthresh 0 rthresh 0 -> this is done to copy the parasitic capacitances
+```
+- The next command is
+```
+ext2spice
+```
+![aatd33](https://github.com/Aatish-Om/pes_pd/assets/125562864/92867d58-9bbf-40be-aad5-1e781e973cda)
+
+- We can see that a sky130_inv.spice file is created
+
+## Sky130 Tech File Labs
+
+**Create Final SPICE Deck**
+- To start off we look at the minimum value of the layout window.
+
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/6a5d5d43-94d8-4248-8681-5d8d94e924e4)
+- We can use 'g' on the keyboard to activate the grid and after selecting a grid by right clicking on the mouse, we type ```box``` in tkcon window to check the minimum value of the layout window.
+
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/fcadbb47-849c-4d5f-a15d-4612fb015be6)
+- Next we need to open the spice file using the command
+```
+gedit sky130_inv.spice
+```
+- We need to configure it to the above specifications.
 
-OpenLANE has the benefit of allowing changes to internal switches of the ASIC design flow on the fly. This allows users to experiment with floorplanning and placement without having to reinvoke the tool.
+**Characterize Inverter using Sky130 Models**
+![aatd34](https://github.com/Aatish-Om/pes_pd/assets/125562864/528f8792-cef1-4d5a-a4b8-240a3eb13644)
 
-### Spice Simulations
+- We now plot the graph for output vs input sweeping the time.
+- We first use the command
+```
+ngspice sky130_inv.spice
+```
+- In the ngspice shell we use the command
+```
+plot y vs time a
+```
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/b810d9fe-11e4-44f7-863c-ed19593e0b3c)
+- The following graph is displayed.
 
-To simulate standard cells spice deck wrappers will need to be created around our model files. 
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/400506ec-61c3-458c-9130-7147ec496c6a)
 
-SPICE deck will comprise of:
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/55c43b65-5c02-451a-bb11-391de8d87571)
+- Rise Time -> time taken to rise from 20% to 80% of the max value -> 2.25075e-09 - 2.184e-09 = 0.006675e-09 s.
 
-  - Model include statements
-  - Component connectivity, including substrate taps
-  - Output load capacitance
-  - Component values
-  - Node names
-  - Simulation commands
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/93f95ac2-43e2-48de-93e1-07399e20b4b1)
 
-To plot the output waveform of the spice deck we will use ngspice. The steps to run the simulation on ngpice are as follows:
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/fc3b2887-d910-4864-ae33-ef02fdb8035f)
+- Propogation Delay/Cell Rise Delay -> 2.21379e-09 - 2.15e-09 = 0.06379e-09 s.
 
-  1. Source the .cir spice deck file
-  2. Run the spice file by: run
-  3. Run: setplot → allows you to view any plots possible from the simulations specified in the spice deck
-  4. Select the simulation desired by entering the simulation name in the terminal
-  5. Run: display to see nodes available for plotting
-  6. Run: plot <node> vs <node> to obtain output waveform
+**Sky130 PDKS and Steps to Download Magic Tool**
+![aatd35](https://github.com/Aatish-Om/pes_pd/assets/125562864/973a5356-d72f-4023-b4ec-c38e67a0c7ef)
 
-### Switching Threshold of a CMOS Inverter 
+- Enter the command
+```
+ wget http://opencircuitdesign.com/open_pdks/archive/drc_tests.tgz
+```
 
-CMOS cells have three modes of operation:
+- Move the file to desktop using
+```
+mv drc_tests.tgz Desktop/
+```
+![aatd36](https://github.com/Aatish-Om/pes_pd/assets/125562864/87c1dfa3-35de-48af-a3a7-6782a63a3bc5)
 
-  - Cutoff - No inversion
-  - Triode - Inversion but no pinchoff in channel
-  - Saturation - Inversion and pinchoff in channel
+- Extract the file using
+```
+tar xfz drc_tests.tgz 
+```
+- Do ```ls``` to view all the files in it.
 
-The voltages at which the switch between the modes of operation happens is dependent on the threshold voltage of the device(s). Threshold voltage is a function of the W/L ratio of a device, therefore varying the W/L ratio will vary the output waveform of CMOS devices. 
+To open the software we type
+```
+magic -d XR
+```
 
-To enable efficient description of the varying waveforms a single parameter called switching threshold is used. Switching threshold is defined at the intersection of Vin = Vout. A perfectly symmetrical device will have a switching threshold such that Vin = Vout = VDD/2. 
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/8571a471-4937-4b89-8197-99c2648dfa66)
+- We click 'file' and open the 'met3.mag' file.
 
-### 16 Mask CMOS Process Steps
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/cbec69ce-fedb-41cd-af31-0dd9750c1ed9)
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/b9551c50-a44b-472b-bf63-d4979c2f8caa)
+- If we select an area and type ```drc why``` in the tkcon wndow, it will show us the DRC error.
 
-  - Substrate Selection : Selection of base layer on which other regions will be formed.
-  - Create an active region for transistors : SiO2 and Si3N2 deposited. Pockets created using photoresist and lithography.
-  - Nwell & Pwell formation : Pwell uses boron and nwell uses phosphorus. Drive in diffusion by placing it in a high temperature furnace.
-  - Creating Gate terminal : For desired threshold value NA (doping Concentration) and Cox to be set.
-  - Lightly Doped Drain (LDD) formation : LDD done to avoid hot electron effect and short channel effect.
-  - Source and Drain formation : Forming the source and drain.
-  - Contacts & local interconnect Creation : SiO2 removed using HF etch. Titanium deposited using sputtering.
-  - Higher Level metal layer formation : Upper layers of metals deposited.
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/53fdfab7-7d24-4638-9fb3-855589c89b83)
+- To add contact cuts to metal3, first select an area using left and right click. Then hovering over the m3contact we click middle mouse button.
 
-### Magic Layout View of Inverter Standard Cell
+**Fixing DRC Errors**
+- There is a DRC error in the poly.mag file in 'poly.9'.
+- Open the sky130A.tech file in the editor and make the following changes
 
-Refer to: https://github.com/nickson-jose/vsdstdcelldesign for cell files.
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/d786e946-95e0-42c8-a0bd-a83a57697e04)
 
-For easier access to critical files within the lab I suggest doing the following:
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/4274217a-ba1b-499d-b81a-fa26b4262301)
 
-  1. Sudo pluma /etc/environment (can open with preferred document viewer)
-  2. Add the following variables to the file:
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/efafb2d3-520d-4405-b1ae-731b0308ac99)
+- Now open the tkcon window and type
+```
+load tech sky130A.tech
+drc check
+```
 
-  ![](/images/19.png)
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/ebd7630c-128d-46ba-adb7-a30169ba7fe6)
+- As we can see the error is fixed.
 
-Replace the file locations as specified in your user hierarchy
+**DRC Error as Geometrical Construct**
+- We open the nwell.mag file.
 
-To invoke Magic:
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/4c49e5c5-4738-449c-9df0-048d2034825d)
+- We type the above commands
 
-  ![](/images/20.png)
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/40097614-0dfe-4479-b85c-4418e7b43787)
+- The following is displayed
 
-  ![](/images/21.png)
+**Find Missing or Incorrect Rules and Fix Them**
 
-### Magic Key Features:
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/338b998a-9a6b-4485-8d2b-095fbbcf3d83)
 
-  1. Color Palette - Defines layers and associated colors
-Continuous DRC
-  2. Device Inference - Automatic recognition of NMOS and PMOS devices
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/cc00bc2f-31ed-45b3-96d8-a12b28697bd4)
+- As we can see this is an incorrect implementation and the above rule is violated.
 
-### Device Inference
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/d689590d-b9a7-43b2-b1da-72e95a9f4dcb)
 
-Select the specific layer/device by hovering over the object and pressing, s, iteratively, until you traverse the hierarchy to the specified object:
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/71d62451-245b-4010-8246-234727062c8b)
+- We make the following changes
 
-![](/images/22.png)
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/08900ffa-8f91-4550-be8c-375b4cb42866)
+- Now we select the nwell.4 and type the following commands
+```
+tech load sky130A.tech
+drc check
+drc style drc(full)
+drc check
+```
 
-Run the what command in the tkcon window:
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/dbb58cd3-4845-4d28-a22b-0228b8260cf6)
+- As we can see the error still persists
+- We can fix it by the following method.
 
-![](/images/23.png)
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/4bc70446-9a20-47cd-95b9-d850e170887a)
+- Select the existing nwell.4 and make a copy of it by selecting it and clicking 'c'.
+- Now select a small area on the nwell.4 and add an 'nsubstratecontact' by hovering over it and clicking middle mouse button.
 
-### DRC Errors
+# Day 4
+## Timing Modelling using Delay Tables
 
-DRC errors in magic will be highlighted with white dotted lines:
+**Convert Grid Info to Track Info**
 
-![](/images/24.png)
+![aatd41](https://github.com/Aatish-Om/pes_pd/assets/125562864/3d5da6f4-076d-440c-b8f4-ed98bb70a984)
 
-DRC checks are continuous in Magic, therefore the designer may ensure the design is DRC free during creation instead of performing the iterative DRC checks when the cell layout is completed.
 
-To identify DRC errors select DRC find next error:
+- We must go to the following directory and type
+```
+less tracks.info
+```
 
-![](/images/25.png)
+![aatd42](https://github.com/Aatish-Om/pes_pd/assets/125562864/b3c1ff8b-c056-417b-8ee0-51d2f3e6bcce)
 
-The associated DRC error will be displayed in the tkcon window:
 
-![](/images/26.png)
+- The 'tracks.info' file is used during the routing stage.
+- Routes are the metal traces.
+- Since the PNR is an automated flow, we need to specify where all we want the routes to go.
 
-For more information on DRC errors plase refer to: https://skywater-pdk--136.org.readthedocs.build/en/136/
-For more information on how to fix these DRC errors using Magic please refer to: http://opencircuitdesign.com/magic/
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/15744b5a-0fc9-4ad5-b4ce-dfefd26e860d)
+- Now we converge the grid definition in the layout to track definition, by typing the following command
 
-### PEX Extraction with Magic
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/dbc80960-e5cb-4b75-9f8d-d30c0e48febb)
+- The following is the result.
+- This shows that the routing of 'li1' layer can happen only along this grid
 
-To extract the parasitic spice file for the associated layout one needs to create an extraction file:
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/026c5733-e48a-4454-8bed-82a3dd6e1697)
+- Having the ports at the intersection of horizontal and vertical tracks ensure that the route can reach that port from the 'y' as well as 'x' direction.
 
-![](/images/27.png)
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/a1022ba3-b42d-4fed-987f-d4823c0e5550)
+- The next requirement is that the width of the cell should be the odd multiple of xpitch which is '0.46' as seen in the 'tracks.info' file.
+- As we can see it encloses two full boxes and two halves of one box, totally making three boxes as indicated by the white rectangle.
 
-After generating the extracted file we need to output the .ext file to a spice file:
+**Convert Magic Layout to Standard Cell LEF**
+- In the tkcon window of the 'sky130_inv.mag' file we type
+```
+save sky130_vsdinv.mag
+```
+to make our own .mag file
 
-![](/images/28.png)
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/c5cbd3be-e520-4548-b863-51c211664688)
+- To make the .lef file we type
+```
+lef write
+```
+to make our own lef file.
 
-![](/images/29.png)
-
-### Spice Wrapper for Simulation
-
-![](/images/30.png)
-
-To run the simulation with ngspice, invoke the ngspice tool with the spice file as input:
-
-![](/images/31.png)
-
-The plot can be viewed by plotting the output vs time while sweeping the input:
-
-![](/images/32.png)
-
-<!-- Day 4 Layout Timing Analysis and CTS -->
-##  Day 4 Layout Timing Analysis and CTS
-
-Place and routing (PnR) is performed using an abstract view of the GDS files generated by Magic. The abstract information will include metal and pin information. The PnR tool will use the abstract view information, formally defined as LEF information, to perform interconnect routing in conjunction to routing guides generated from the PnR flow.
-
-### An Introduction to LEF Files
-
-  - Technology LEF - Contains layer information, via information, and restricted DRC rules
-  - Cell LEF - Abstract information of standard cells
-
-![](/images/33.png)
-
-Tracks are used during the routing stage, routes can go over the tracks, or metal traces can go over the tracks. What the file is saying is that for the li1 layer the x or horizontal track is at an offset of 0.23 and a pitch of 0.46. The offset is the distance from the origin to the routing track in either the x or y direction. It is half the pitch so that means the tracks are centered around the origin. 
-
-### Standard Cell Pin Placement
-
-On-track standard cell pin placement is essential for DRC free PnR flow. Pins must align with the li1 and met1 preferred routing directions. During standard cell creation this concept must be accounted for. To ensure a cell is aligned with routing grids in Magic we can display a grid on top of the gds file.
-
-To display the grid in magic:
-
-![](/images/34.png)
-
-Viewing the grid we can ensure our pin placement is optimized for PnR flow:
-
-![](/images/35.png)
-
-### LEF Generation in Magic
-
-Magic allows users to generate cell LEF information directly from the Magic terminal. To generate the cell LEF file from Magic perform:
-
-![](/images/36.png)
-
-Generated cell LEF file:
-
-![](/images/37.png)
-
-### Including Custom Cells in OpenLANE
-
-In order to include the new cells in OpenLANE we need to do some initial configuration:
-  1. Fully characterize new cell with GUNA for specified corners
-  2. Include cell level liberty file in top level liberty file
-  3. Reconfigure synthesis switches in the config.tcl file:
-
-  ![](/images/38.png)
-
-Note: This step will also include any extra LEF files generated for the custom standard cell(s)
-Overwrite previous run to include new configuration switches:
-
-  4. Overwrite previous run to include new configuration switches:
+- Type ```less sky130_vsdinv.lef```
   
-  ![](/images/39.png)
+![pk43](https://github.com/poornima-chetty/pes_pd/assets/142583396/03988d7e-2a0f-40cf-a668-9771cd70aad0)
 
-  5. Add additional statements to include extra cell LEFs:
-  
-  ![](/images/40.png)
+- The .lef file is as follows
 
-  5. Check synthesis logs to ensure cell has been integrated correctly
+**Steps to Include New Cell in Synthesis**
+![aatd43](https://github.com/Aatish-Om/pes_pd/assets/125562864/b4378203-9d5c-400d-a882-5c03ae3f2377)
 
-### Fixing Slack Violations
+- We copy the .mag file that we created to the 'src' folder of picorv32a folder.
+![aatd44](https://github.com/Aatish-Om/pes_pd/assets/125562864/60f98ee4-c964-4078-b27e-00801ce71ed0)
 
-VLSI engineers will obtain system specifications in the architecture design phase. These specifications will determine a required frequency of operation. To analyze a circuit's timing performance designers will use static timing analysis tools (STA). When referring to pre clock tree synthesis STA analysis we are mainly concerned with setup timing in regards to a launch clock. STA will report problems such as worst negative slack (WNS) and total negative slack (TNS). These refer to the worst path delay and total path delay in regards to our setup timing restraint. Fixing slack violations can be debugged through performing STA analysis with OpenSTA, which is integrated in the OpenLANE tool. To describe these constraints to tools such as In order to ensure correct operation of these tools two steps must be taken:
+- We then perform this copy command.
 
-  1. Design configuration files (.conf) - Tool configuration files for the specified design
-  2. Design Synopsys design constraint (.sdc) files - Industry standard constraints file 
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/acb2c280-ba86-4f84-947e-450fc242eee8)
+- Next we modify the 'config.tcl' file in the picorv32a folder as follows.
+- Open the OpenLANE interactive window and retrieve the 0.9 package.
 
-For the design to be complete, the worst negative slack needs to be above or equal to 0. If the slack is outside of this range we can do one of multiple things:
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/2d3fb8cd-43e6-46c2-b2de-69a338320fe4)
+- Type the following
+```
+prep -design picorv32a -tag 16-09_19-58 -overwrite
+set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
+add_lefs -src $lefs 
+```
+- Next we type ```run_synthesis```.
 
-  1. Review our synthesis strategy in OpenLANE
-  2. Enable cell buffering
-  3. Perform manual cell replacement on our WNS path with the OpenSTA tool
-  4. Optimize the fanout value with OpenLANE tool
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/e3fdfe4f-0139-4bd1-8617-b9aa6c54d0e2)
 
-To invoke OpenSTA with the configuration file:
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/527db989-1cd9-403a-8b02-3028400befc0)
+- The following results are displayed.
 
-![](/images/41.png)
+- To run floorplan and placement we type
+```
+init_floorplan
+run_placement
+```
+- Now to view the design we type the command
+```
+magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.placement.def &
+```
 
-### Cell Fanout Example:
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/84fad4e0-bda4-4026-a9a4-4dc9bc9edec6)
 
-![](/images/42.png)
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/7fd1b736-d6dd-4a98-8567-1ee6d0cc5813)
+- The following is displayed.
+- Zooming into the design using 'z' we can see the sky130_vsdinv than we defined.
+- We have plugged in our custon cell in the OpenLANE flow.
 
-The delay of this cell is large due to a high load capacitance due to high fanout. To fix this problem we can re-run synthesis within OpenLANE after reconfiguring the maximum fanout load value.
+## Timing Analysis with Ideal Clocks using OpenSTA
 
-### Cell Replacement Example:
+**Configure OpenSTA for Post-Synth Timing Analysis**
+- We must create two files
 
-![](/images/43.png)
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/c9867e29-810f-4aca-87cb-c71032f823e4)
+- The first one must be in the openlane directory
+- This file is known as the 'pre_sta.conf' file.
 
-To determine what loads our net is driving in OpenSTA we can report net connecitons:
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/9e849dac-a4ff-4420-9a48-bf759f6c82e4)
 
-![](/images/44.png)
+- The second is the my_base.sdc file.
+- This should be in the 'src/sky130' directory under the picorv32a directory.
 
-To increase the drive strength of our buffer:
+- To run the timing analysis we type
+```
+sta pre_sta.conf
+```
 
-![](/images/45.png)
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/130dfd6a-d980-4cd8-99e0-4ca26d7cd32b)
+- Following result is displayed
+- There is a slack violation
 
-After performing this optimization we can use the write_verilog command of OpenSTA to output the improved netlist for use in the OpenLANE flow:
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/a033e771-31e5-4b36-b783-d37e0fc52001)
 
-![](/images/46.png)
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/48528ec3-a353-4809-8d67-4238ad7880fc)
+- Settinf MAX_FANOUT value to 4 reduces the slack violation.
 
-### Clock Tree Synthesis
+## Clock Tree Synthesis TritonCTS and Signal Integrity
+**Run CTS**
+- To run CTS we need to type the command
+```
+run_cts
+```
 
-After running floorplan and standard cell placement in OpenLANE we are ready to insert our clock tree for sequential elements in our design. Two of the main concerns with generation of the clock tree are:
-  
-  1. Clock skew - Difference in arrival times of the clock for sequential elements across the design
-  2. Delta delay - Skew introduced through capacitive coupling of the clock tree nets
+- New .v is created
 
-To run clock tree synthesis (CTS) in OpenLANE:
+**Timing Analysis with Real CLocks using OpenSTA**
 
-![](/images/47.png)
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/9946a62e-f301-4eab-afe7-f3127d4e56b6)
+- First we type the command ```openroad```.
+- Then we read the .lef file using the command
+```
+read_lef /openLANE_flow/designs/picorv32a/runs/16-09_19-58/tmp/merged.lef
+```
 
-Note: To ensure timing constraints CTS will add buffers throughout the clock tree which will modify our netlist
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/168b1183-65aa-4e51-ab9f-8c6e227e188c)
+- Then we read the .def file.
+```
+read_def /openLANE_flow/designs/picorv32a/runs/16-09_19-58/results/cts/picorv32a.cts.def
+```
 
-### Viewing Post-CTS Netlist
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/0e3199ee-c1dc-43fb-8097-0c688b685c48)
+- We then do
+```
+write_db pico_cts.db
+read_db pico_cts.db
+read_verilog /openLANE_flow/designs/picorv32a/runs/16-09_19-58/results/synthesis/picorv32a.synthesis_cts.v
+read_liberty -max $::env(LIB_SLOWEST)
+read_liberty -max $::env(LIB_FASTEST)
+```
 
-OpenLANE will generate a new .def file containing information of our design after CTS is performed. To view this netlist we need to invoke the .def file with the Magic tool:
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/4b35830f-9822-48c7-ab41-5bcfb1eea4f6)
+- We read the .src file.
+```
+read_sdc /openLANE_flow/designs/picorv32a/src/sky130/my_base.sdc
+```
+- We set the clock
+```
+set_propagated_clock [all_clocks]
+```
+- Checking the report
+```
+report_checks -path_delay min_max -format full_clock_expanded -digits 4
+```
 
-![](/images/48.png)
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/f637e66a-db20-4cb6-8b84-75c11267c0eb)
 
-### Post-CTS STA Analysis
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/184e7412-dc84-453c-b2f0-76b40e3588f4)
+- Above results are displayed
 
-OpenLANE has the OpenROAD application integrated into its flow. The OpenROAD application has OpenSTA integrated into its flow. Therefore, we can perform STA analysis from within OpenLANE by invoking OpenROAD.
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/7fd17b40-dfe1-4b1f-b597-fa5b5c911f74)
+- We perform it again for a more accurate result
 
-To invoke OpenROAD from OpenLANE:
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/a563b159-c6bb-44ec-a44a-e406c16f5ed3)
 
-![](/images/49.png)
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/19435f73-e4c7-4663-9c21-0780cdd3f2a6)
+- Above results are displayed
 
-In OpenROAD the timing analysis is done by creating a .db database file. This database file is created from the post-cts LEF and DEF files. To generate the .db files within OpenROAD:
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/0415b653-7c0b-478d-91c3-e70d0e94d654)
+```
+report_clock_skew -hold
+report clock_skew -setup
+```
 
-![](/images/50.png)
+# Day 5
+## Power Distribution Network and Routing
 
-Note: Whenever the DEF file changes we need to recreate this .db file
+**Build Power Distribution Network**
 
-After .db generation users can perform tool configuration followed by reporting the propagated clock timing analysis:
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/02713233-6b98-4280-b70b-c54aea1d9ddb)
 
-![](/images/51.png)
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/965b7342-ccfa-41ee-9798-4180265a6119)
+- To do this first we type
+```
+gen_pdn
+```
 
-<!-- Day 5 Final Steps in RTL to GDSII -->
-##  Day 5 Final Steps in RTL to GDSII
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/8467354c-875a-44e9-8ef1-f5be38bd0cc4)
+- We see that there is a change in the DEF.
+- To run the rounting we type ```run_routing```.
+- To check for DRC errors we need to check the 'tritonRoute.drc' folder
+- To extract the parasitics we need to use an extractor engine.
+- We use the SPEF Extraction.
 
-After generating our clock tree network and verifying post routing STA checks we are ready to generate the power distribution network in OpenLANE:
-
-![](/images/52.png)
-
-### Power Distribution Network Generation
-
-To generate the PDN in OpenLANE:
-
-![](/images/53.png)
-
-The PDN feature within OpenLANE will create:
-  1. Power ring global to the entire core
-  2. Power halo local to any preplaced cells
-  3. Power straps to bring power into the center of the chip
-  4. Power rails for the standard cells
-  
-  ![](/images/54.png)
-
-Note: The pitch of the metal 1 power rails defines the height of the standard cells
-
-### Global and Detailed Routing
-
-OpenLANE uses TritonRoute as the routing engine for physical implementations of designs. Routing consists of two stages:
-
-  1. Global Routing - Routing guides are generated for interconnects on our netlist defining what layers, and where on the chip each of the nets will be reputed
-  2. Detailed Routing - Metal traces are iteratively laid across the routing guides to physically implement the routing guides
-
-### To run routing in OpenLANE:
-
-![](/images/55.png)
-
-If DRC errors persist after routing the user has two options:
-  1. Re-run routing with higher QoR settings
-  2. Manually fix DRC errors specific in tritonRoute.drc file
-
-### SPEF Extraction
-
-After routing has been completed interconnect parasitics can be extracted to perform sign-off post-route STA analysis. The parasitics are extracted into a SPEF file. The SPEF extractor is not included within OpenLANE as of now. 
-
+**SPEF Extraction**
+- To use this engine we need to go to
+```
+cd Desktop/work/tools/SPEF_Extractor
+```
+- Next we need to use this command
+```
+python3 /home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/16-09_19-58/tmp/merged.lef /home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/16-09_19-58/results/routing/picorv32a.def
+```
+- SPEF file is created in ```/home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/16-09_19-58/results/routing/```
