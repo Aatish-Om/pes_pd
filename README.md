@@ -128,11 +128,11 @@ To get a local copy up and running follow these simple example steps.
 Lets take an example of an Arduino Board,An Arduino board is a small computer that you can use to control and interact with electronic devices. It's a physical platform that allows you to write and upload programs (called "sketches") to make things like lights, motors, sensors, and other components work together.
 we take an Arduino board since we will be working with something similar, **we will be talking about a field which is lying inside the chip shown below**:
 
-![image](https://github.com/Tawfeeq2507/pes_pd/assets/142083027/0783c87c-1949-4fa8-8a9b-b6fb487ad22c)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/dde84371-2e80-4ad5-89fb-71313cbe41ac)
 
 - if we want to desgin this particular Arduino board, we can describe it in a form of a block diagram shown below:
 
-![image](https://github.com/Tawfeeq2507/pes_pd/assets/142083027/5f0aa3ef-2b05-414d-9234-ddc4d438b5ec)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/ac009ecd-0b20-4697-b758-510ce11237e7)
 
 - the highlighted area of the chip is nothing but the processor shown above and along with the processors we have all the interfaces that we see around the particular processor.
 - This is the typical arduino board diagram looks like.
@@ -141,7 +141,7 @@ we wont be talking about the embedded desgin and rather will be looking into the
 
 when we open up the IC it looks something like this shown below:
 
-![image](https://github.com/Tawfeeq2507/pes_pd/assets/142083027/049a19cc-766c-46f6-9879-ca05b3c9ae8b)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/48e0360a-ed10-48ae-b333-9d7524b3b0ab)
 
 what we see above is usually what we call a **"chip"**, but its known as a **"PACKAGE"**, these packages have been assigned with certain names for ex: we see that the above package is named **"QNF-48"**.Similarly there are multiple packages in the market with different flavours and pins.
 - Here the pin loacations of the particular package are all given by the particular arduino board.
@@ -149,13 +149,13 @@ what we see above is usually what we call a **"chip"**, but its known as a **"PA
 
 - the main Brain of the package the chip sits in the middle of the package and the way the chip is connected to the package is shown below:
 
-![image](https://github.com/Tawfeeq2507/pes_pd/assets/142083027/9ff58809-bd74-41fa-9043-cb09f788ed90)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/05e6ccd6-0099-4e5e-97e9-558ff2b330b6)
 
 - Here we have used **"wire bounds"** to connect the pins to the boundaries of the Chip, In this way we are able to transfer all the signal from outside world into the chip.
 
 When we Open the chip it looks like this shown below:
 
-![image](https://github.com/Tawfeeq2507/pes_pd/assets/142083027/f90561ac-8bc0-4f3f-9ab0-6c4cf846bb62)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/e1d0e527-c9ab-4e2e-8294-1651913e9d76)
 
 - The chip that is shown above has many various components and one of the Important componants is the **"PADs"**.
 - **"PADs"** in a chip are like the little metal feet or points on the bottom of the chip. They're used to connect the chip to a circuit through which we can send the outside signal into the chip so it can do its job.
@@ -166,7 +166,7 @@ When we Open the chip it looks like this shown below:
 
 The typical **Core** of a CHIP consists of an SoC(we will be working with RISC-V SoC),SRAM,ADCs,DACs,PLL,SPI and couple of components shown below:
 
-![image](https://github.com/Tawfeeq2507/pes_pd/assets/142083027/e88f8c8a-3d09-4555-8b92-89a7bb29b5e9)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/a732d0f3-49c8-4327-a06c-78613f298f4b)
 
 - these SRAM,ADC,DAC,PLL all together are known As **"Foundry IP's(Intellectual Properties)"**
 - **Foundry** is an important term in chip Designing Chips, all our devices,mobiles,everything is depended on the Foundry's.
@@ -197,7 +197,7 @@ There are two main types of HDLs:
 
 - To Implement these RISC-V specifications we need **RTL(Register-Transfer Level)**,in this case shown below the RTL used is **picorv32 cpu core**
 
-![image](https://github.com/Tawfeeq2507/pes_pd/assets/142083027/f8e12d12-72af-4d9a-b951-14769924a11f)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/adcac687-05dd-417b-adcf-4a2933f7c1f5)
 
 
 - this RTL implments these RISC-V specifications.
@@ -215,7 +215,7 @@ Any **application software** or aka **"Apps"** run on **Hardware**... but how do
 - The syntax of these instructions depends on what kind of the hardware is,(ex if the hardware is for intel x86 then the instructions will be of intel x86 only).
 - all these instructions all together form the **.exe file**
 
-![image](https://github.com/Tawfeeq2507/pes_pd/assets/142083027/79883606-8f16-453f-a8e0-7ace2b93f68f)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/923eba6a-e543-4462-bbb5-c6ae954c4b89)
 
 - The job of the **"Assembler"** is to take these instructions and convert it into its respective binary numbers aka **Machine language** program.
 - These binary numbers aka machine language is then fed to the hardware, where hardware understands the type of pattern of the machine language and does the respective operation.
@@ -228,13 +228,13 @@ lets take an example of a application of "stop watch".
 - these intructions go into the assembler as a .exe file which gives the output in form of machine language.
 - these hexadecimals are converted into binary before entering into the hardware.
 
-![image](https://github.com/Tawfeeq2507/pes_pd/assets/142083027/cd3ff2fc-9fd5-4a77-b1f2-4daa50b6ba1f)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/ce35cfc8-ead7-4155-8a93-ad6674d488c7)
 
 - in general terms these binary numbers are entering into the chip layout and the functions are performed in this layout.
 
 when we take a much deeper look into the program we try to understand the RISC-V intrucstions-
 
-![image](https://github.com/Tawfeeq2507/pes_pd/assets/142083027/ac8b1be7-b508-4ee6-915e-243c495668cf)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/47926209-305d-4916-8730-bf9f7169c786)
 
 - here we see that in left we have the input to the compiler,in the left we have the output of the compiler and the output of the assembler is in hexadecimal in the middle we have assembler output.
 - the instructions after the compiler acts as an **"Abstract interface"** between the C language and the hardware, this Abstract interface is called as the **"Instruction set architecture"** or **"Architecture of the computer"**,in the case shown above its the RISC-V architecture.
@@ -245,7 +245,7 @@ There is another inteface between the Assembly language and the hardware which i
 
 RTL stands for Register-Transfer Level. It's a level of abstraction used in digital circuit design and describes how data moves between registers and how operations are performed on that data.In RTL design, the behavior of the digital system is defined by describing how data is transferred between registers and how operations are performed on that data. This is typically done using a hardware description language (HDL) like Verilog or VHDL.
 
-![image](https://github.com/Tawfeeq2507/pes_pd/assets/142083027/52f5c6ce-ea1a-4bf8-8b89-dc223163f440)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/bf86f871-d034-41cc-9453-01a35f8130e0)
 
 - Our hardware only understands 1's and 0's therefore we need An RTL which implements the output of the assembly language that is the machine language into the Hardware.This is known as the RTL implementation of our instruction set.
 - This RTL is then Synthesized into a Netlist, where this Synthesized Netlist of the RTL consists of Gates,flip flops,inverters,MUX's,etc.
@@ -266,11 +266,11 @@ RTL stands for Register-Transfer Level. It's a level of abstraction used in digi
 
 - **EDA** stands for **(Electronic Design Automation)**, and EDA tools refer to a category of software applications and tools used in the design and development of electronic systems, including integrated circuits (ICs), printed circuit boards (PCBs), and other electronic components.EDA tools are essential for designing and testing electronic hardware and ensuring that it functions correctly before it is manufactured.hese tools automate various aspects of the design process, making it more efficient and error-free. 
 
-![image](https://github.com/Tawfeeq2507/pes_pd/assets/142083027/e2db98f6-b946-45ef-8c33-b2ce3ea80889)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/c0a94d86-440f-4be9-8ff8-85b06a1d304c)
 
 - Therfore for making Open source Digital ASIC Design we have Open source for RTL IP's(librecores.org,opencores.org,github.com,etc),EDA tools(qflow,openROAD,openLANE,etc),PDK(Foss 130nm production PDK).
 
-![image](https://github.com/Tawfeeq2507/pes_pd/assets/142083027/ce2d29cb-02c9-4f40-b68b-3472527cbea1)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/22ed7f49-dbc0-4121-93ce-8b0030f3dfa9)
 
 - these 3 Elements can be used to achieve 100% open-source Digital ASIC design.
 
@@ -288,7 +288,7 @@ The inputs to the ASIC design flow are:
     - I/O Libraries
 
 Process Design Kit (PDK) is the interface between the CAD designers and the foundry. The PDK is a collection of files used to model a fabrication process for the EDA tools used in designing an IC. PDK’s are traditionally closed-source and hence are the limiting factor to open-source Digital ASIC Design. Google and Skywater have broken this stigma and published the world’s first open-source PDK on June 30th, 2020. This breakthrough has been a catalyst for open-source EDA tools. This workshop focuses on using the open-source RTL2GDS EDA tool, OpenLANE, in conjunction with the Skywater 130nm PDK to perform the full RTL2GDS flow as shown below:
-![intro2](https://github.com/poornima-chetty/pes_pd/assets/142583396/27550243-099b-4340-b82f-91aa1e8e4802)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/4fbb0172-07b7-4f7f-a125-24e395ccca3b)
 
 
 OpenLANE flow consists of several stages. By default, all flow steps are run in sequence. Each stage may consist of multiple sub-stages. OpenLANE can also be run interactively as shown here.
@@ -459,7 +459,7 @@ To view our floorplan in Magic we need to provide three files as input:
 
 ![aatd22](https://github.com/Aatish-Om/pes_pd/assets/125562864/e5109dda-89ae-4198-aebc-09ffacc061ad)
 
-![D2_2](https://github.com/poornima-chetty/pes_pd/assets/142583396/e4363ffb-a39d-4223-9908-f114267686d1)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/fa0f4bbd-1123-4be6-beda-1ba425e197b0)
 
 
 ### Placement
@@ -474,7 +474,7 @@ To do placement in OpenLANE:
 ``` % run_placement ```
 For placement to converge the overflow value needs to be converging to 0. At the end of placement cell legalization will be reported:
 
-![16](https://github.com/poornima-chetty/pes_pd/assets/142583396/8b1fd990-48a4-4341-a8b2-1e80a7380a69)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/1c759b39-69a8-40e7-890f-fd0de7fbfbc2)
 
 
 ### Viewing Placement in Magic
@@ -483,7 +483,7 @@ To view placement in Magic the command mirrors viewing floorplanning:
 
 ![aatd23](https://github.com/Aatish-Om/pes_pd/assets/125562864/23806e92-af11-4dd7-b1e3-0ae30bae3d89)
 
-![D2_5](https://github.com/poornima-chetty/pes_pd/assets/142583396/35d5b523-6b50-4155-9211-534593417a4d)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/38c515cf-4f42-4e49-9c47-15db2ca22322)
 
 
 ### Standard Cell Design Flow
@@ -513,7 +513,7 @@ Characterization is a well-defined flow consisting of the following steps:
 ## Labs for CMOS inverter ngspice simulations
 **IO Placer Revision**
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/fabe5ca4-7dde-43f9-a8e4-260ed11ed820)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/db0a363f-9960-43d3-a84b-9d3d48e84ce8)
 - The following command can be typed to change the I/O pins placemnt configuration.
 
 ## Inception of Layout and CMOS Fabrication Process
@@ -526,12 +526,12 @@ Characterization is a well-defined flow consisting of the following steps:
 
 **SPICE Simulation and Switching Threshold**
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/29e6f5c4-d166-4283-85c2-81947d29f165)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/8e2b16f5-bc42-4248-82b4-f0b438e609cd)
 - The CMOS on the right side has a bigger size than the one on the left.
 - These waveforms tell us that the CMOS is a very robust device. The characteristics of the CMOS are maintained across a variety of sizes.
 - The arrow is pointing to the point where 'Vin = Vout'.
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/247e37b7-b3b3-4036-9eaf-2c5380a6c71a)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/c1455925-136f-4170-9e24-630abd1f2c28)
 - Above graph gives details on each point and its significance
 
 **A Git Clone and some other Steps**
@@ -569,10 +569,10 @@ in the follwoing directory shown in the figure
  magic -T sky130A.tech sky130_inv.mag &
 ```
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/4544d764-7b49-4b1f-b3d7-0ae61961bd81)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/fcdbab9e-e485-4590-a8df-0aec709dc265)
 - The following layout is displayed.
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/f10146f9-71a2-4d15-b377-43a72034b9fc)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/71d7e18b-767d-4f9a-8760-6ac6e4f33f87)
 - We can get to know the details of the inverter by hovering the mouse cursor over it and pressing 's' on the keyboard. Then we can type ```what``` in the tkcon.
 - Pressing 's' three times will show what parts are connected to the selected part.
 
@@ -581,13 +581,13 @@ in the follwoing directory shown in the figure
 
 **Steps to Create Standard Cell Layout and Extract Spice Netlist**
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/aa5b0d26-1711-4fb3-84ff-817ca929110f)
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/7a2bca47-28d8-4c2e-96cd-4fdcb983fcf0)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/9e1455a4-b270-4ab3-a8a7-38c689ec34e5)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/8d8f2f87-066a-4b87-9335-a5bc3595c0f2)
 - DRC errors can be viewed in the tkcon.
 
 To extract Spice Netlist we perform the following steps in the tkcon window:
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/deb99366-4eb3-40b6-8172-ecce6962db33)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/729ab8ae-05f5-4e2f-bcf2-7d6ab030f711)
 - We use the commands
 ```
 ext2spice cthresh 0 rthresh 0 -> this is done to copy the parasitic capacitances
@@ -605,10 +605,10 @@ ext2spice
 **Create Final SPICE Deck**
 - To start off we look at the minimum value of the layout window.
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/6a5d5d43-94d8-4248-8681-5d8d94e924e4)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/f1fadfb3-4187-486e-93c2-6e052ccd2e2b)
 - We can use 'g' on the keyboard to activate the grid and after selecting a grid by right clicking on the mouse, we type ```box``` in tkcon window to check the minimum value of the layout window.
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/fcadbb47-849c-4d5f-a15d-4612fb015be6)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/4c4b9619-00ad-42c7-9575-20724cf94e40)
 - Next we need to open the spice file using the command
 ```
 gedit sky130_inv.spice
@@ -627,17 +627,17 @@ ngspice sky130_inv.spice
 ```
 plot y vs time a
 ```
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/b810d9fe-11e4-44f7-863c-ed19593e0b3c)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/e9a5157f-247d-47f4-b617-f60b91afd848)
 - The following graph is displayed.
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/400506ec-61c3-458c-9130-7147ec496c6a)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/d774e2fd-19b4-4f06-907a-437ed0ab17f3)
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/55c43b65-5c02-451a-bb11-391de8d87571)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/d2b1850b-0355-428f-a0d3-e5732d912c38)
 - Rise Time -> time taken to rise from 20% to 80% of the max value -> 2.25075e-09 - 2.184e-09 = 0.006675e-09 s.
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/93f95ac2-43e2-48de-93e1-07399e20b4b1)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/ce78392d-67df-4e4d-9a79-aa133d19b740)
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/fc3b2887-d910-4864-ae33-ef02fdb8035f)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/9449aad2-d561-487a-99ea-bd13a9ddc89a)
 - Propogation Delay/Cell Rise Delay -> 2.21379e-09 - 2.15e-09 = 0.06379e-09 s.
 
 **Sky130 PDKS and Steps to Download Magic Tool**
@@ -665,56 +665,56 @@ To open the software we type
 magic -d XR
 ```
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/8571a471-4937-4b89-8197-99c2648dfa66)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/6f836348-52c0-41b0-9603-b3e700fc6b3e)
 - We click 'file' and open the 'met3.mag' file.
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/cbec69ce-fedb-41cd-af31-0dd9750c1ed9)
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/b9551c50-a44b-472b-bf63-d4979c2f8caa)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/491dd827-74de-47ea-ab53-2ec2c8076eba)
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299 140/b9551c50-a44b-472b-bf63-d4979c2f8caa)
 - If we select an area and type ```drc why``` in the tkcon wndow, it will show us the DRC error.
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/53fdfab7-7d24-4638-9fb3-855589c89b83)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/8aa2327b-d7dd-424f-b612-920d2611bd53)
 - To add contact cuts to metal3, first select an area using left and right click. Then hovering over the m3contact we click middle mouse button.
 
 **Fixing DRC Errors**
 - There is a DRC error in the poly.mag file in 'poly.9'.
 - Open the sky130A.tech file in the editor and make the following changes
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/d786e946-95e0-42c8-a0bd-a83a57697e04)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/0fbf8c0d-4edc-48a3-a748-33a7d702dd38)
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/4274217a-ba1b-499d-b81a-fa26b4262301)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/8a005b03-d089-4d76-8671-9a4cc4f9aade)
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/efafb2d3-520d-4405-b1ae-731b0308ac99)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/04ae901c-4e2f-4f7f-8156-a99328723cfb)
 - Now open the tkcon window and type
 ```
 load tech sky130A.tech
 drc check
 ```
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/ebd7630c-128d-46ba-adb7-a30169ba7fe6)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/e8526f52-f610-40fe-bf3d-5a8758f8d9cf)
 - As we can see the error is fixed.
 
 **DRC Error as Geometrical Construct**
 - We open the nwell.mag file.
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/4c49e5c5-4738-449c-9df0-048d2034825d)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/49eb0d37-19f1-4938-8c27-d35ea10c1918)
 - We type the above commands
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/40097614-0dfe-4479-b85c-4418e7b43787)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/ca46831e-1221-4808-bf52-6f559a63918c)
 - The following is displayed
 
 **Find Missing or Incorrect Rules and Fix Them**
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/338b998a-9a6b-4485-8d2b-095fbbcf3d83)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/e68f3d46-53f3-47fb-adc2-614bdcf6afde)
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/cc00bc2f-31ed-45b3-96d8-a12b28697bd4)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/c3781c2a-f052-4fd9-8b42-e7d00870494f)
 - As we can see this is an incorrect implementation and the above rule is violated.
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/d689590d-b9a7-43b2-b1da-72e95a9f4dcb)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/45fb3b39-3da1-485e-814c-43b6d14c693e)
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/71d62451-245b-4010-8246-234727062c8b)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/881c265d-f85d-47c9-8d5d-34b963aae55e)
 - We make the following changes
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/08900ffa-8f91-4550-be8c-375b4cb42866)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/113df711-c8b0-4569-b58b-85f27ed1f292)
 - Now we select the nwell.4 and type the following commands
 ```
 tech load sky130A.tech
@@ -723,11 +723,11 @@ drc style drc(full)
 drc check
 ```
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/dbb58cd3-4845-4d28-a22b-0228b8260cf6)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/05a44d76-3675-4403-969d-ea59f5552598)
 - As we can see the error still persists
 - We can fix it by the following method.
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/4bc70446-9a20-47cd-95b9-d850e170887a)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/9a218436-fb1d-437c-b849-873cd27645f4)
 - Select the existing nwell.4 and make a copy of it by selecting it and clicking 'c'.
 - Now select a small area on the nwell.4 and add an 'nsubstratecontact' by hovering over it and clicking middle mouse button.
 
@@ -751,17 +751,17 @@ less tracks.info
 - Routes are the metal traces.
 - Since the PNR is an automated flow, we need to specify where all we want the routes to go.
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/15744b5a-0fc9-4ad5-b4ce-dfefd26e860d)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/dea9cfec-73bc-412f-b951-a5d0f33df57c)
 - Now we converge the grid definition in the layout to track definition, by typing the following command
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/dbc80960-e5cb-4b75-9f8d-d30c0e48febb)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/1a8b9038-c994-439e-b80e-0414e185f228)
 - The following is the result.
 - This shows that the routing of 'li1' layer can happen only along this grid
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/026c5733-e48a-4454-8bed-82a3dd6e1697)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/6b3526c0-95a3-470a-bf7a-be3d7e66ee33)
 - Having the ports at the intersection of horizontal and vertical tracks ensure that the route can reach that port from the 'y' as well as 'x' direction.
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/a1022ba3-b42d-4fed-987f-d4823c0e5550)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/d1051339-089d-45c5-805d-7b4c4c11b060)
 - The next requirement is that the width of the cell should be the odd multiple of xpitch which is '0.46' as seen in the 'tracks.info' file.
 - As we can see it encloses two full boxes and two halves of one box, totally making three boxes as indicated by the white rectangle.
 
@@ -772,7 +772,7 @@ save sky130_vsdinv.mag
 ```
 to make our own .mag file
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/c5cbd3be-e520-4548-b863-51c211664688)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/ece0c140-e897-4ba4-9045-4e148e6f955a)
 - To make the .lef file we type
 ```
 lef write
@@ -781,7 +781,7 @@ to make our own lef file.
 
 - Type ```less sky130_vsdinv.lef```
   
-![pk43](https://github.com/poornima-chetty/pes_pd/assets/142583396/03988d7e-2a0f-40cf-a668-9771cd70aad0)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/5fc8ecf7-fe79-4a94-ab5d-aea6a096f62f)
 
 - The .lef file is as follows
 
@@ -793,11 +793,11 @@ to make our own lef file.
 
 - We then perform this copy command.
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/acb2c280-ba86-4f84-947e-450fc242eee8)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/7027e0b3-c476-4bca-8cc6-85d9e0dbdba6)
 - Next we modify the 'config.tcl' file in the picorv32a folder as follows.
 - Open the OpenLANE interactive window and retrieve the 0.9 package.
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/2d3fb8cd-43e6-46c2-b2de-69a338320fe4)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/1a78a72a-ac58-4de3-890e-4cd158e64535)
 - Type the following
 ```
 prep -design picorv32a -tag 16-09_19-58 -overwrite
@@ -806,9 +806,9 @@ add_lefs -src $lefs
 ```
 - Next we type ```run_synthesis```.
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/e3fdfe4f-0139-4bd1-8617-b9aa6c54d0e2)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/0498ba69-ba67-4dc9-9423-be52d27c5ace)
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/527db989-1cd9-403a-8b02-3028400befc0)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/c84352cd-cad4-4665-99f2-e4ff3669c703)
 - The following results are displayed.
 
 - To run floorplan and placement we type
@@ -821,9 +821,9 @@ run_placement
 magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.placement.def &
 ```
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/84fad4e0-bda4-4026-a9a4-4dc9bc9edec6)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/81cc9573-0873-411c-ba07-e78690f3792a)
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/7fd1b736-d6dd-4a98-8567-1ee6d0cc5813)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/05030e56-825c-42dd-8563-58c29192f7e9)
 - The following is displayed.
 - Zooming into the design using 'z' we can see the sky130_vsdinv than we defined.
 - We have plugged in our custon cell in the OpenLANE flow.
@@ -833,11 +833,11 @@ magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs
 **Configure OpenSTA for Post-Synth Timing Analysis**
 - We must create two files
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/c9867e29-810f-4aca-87cb-c71032f823e4)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/1b7bfafe-bb68-4e49-9107-2d386d525014)
 - The first one must be in the openlane directory
 - This file is known as the 'pre_sta.conf' file.
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/9e849dac-a4ff-4420-9a48-bf759f6c82e4)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/6a41564e-8555-427e-8757-ae608b4be916)
 
 - The second is the my_base.sdc file.
 - This should be in the 'src/sky130' directory under the picorv32a directory.
@@ -847,13 +847,13 @@ magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs
 sta pre_sta.conf
 ```
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/130dfd6a-d980-4cd8-99e0-4ca26d7cd32b)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/a3dde27c-c1bf-4462-9bdd-1b1ce015383f)
 - Following result is displayed
 - There is a slack violation
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/a033e771-31e5-4b36-b783-d37e0fc52001)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/3c03ed68-7bbe-4d88-b8e0-e38ec71c6cdb)
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/48528ec3-a353-4809-8d67-4238ad7880fc)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/f530b633-0500-4af7-a036-68b523537f45)
 - Settinf MAX_FANOUT value to 4 reduces the slack violation.
 
 ## Clock Tree Synthesis TritonCTS and Signal Integrity
@@ -867,20 +867,20 @@ run_cts
 
 **Timing Analysis with Real CLocks using OpenSTA**
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/9946a62e-f301-4eab-afe7-f3127d4e56b6)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/c3d18d0c-7c97-4503-8422-223a5bea1492)
 - First we type the command ```openroad```.
 - Then we read the .lef file using the command
 ```
 read_lef /openLANE_flow/designs/picorv32a/runs/16-09_19-58/tmp/merged.lef
 ```
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/168b1183-65aa-4e51-ab9f-8c6e227e188c)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/5ee490ef-7348-423e-b4ae-93f15c6121e8)
 - Then we read the .def file.
 ```
 read_def /openLANE_flow/designs/picorv32a/runs/16-09_19-58/results/cts/picorv32a.cts.def
 ```
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/0e3199ee-c1dc-43fb-8097-0c688b685c48)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/86d434eb-dbfb-4a46-b595-19d25e5f2137)
 - We then do
 ```
 write_db pico_cts.db
@@ -890,7 +890,7 @@ read_liberty -max $::env(LIB_SLOWEST)
 read_liberty -max $::env(LIB_FASTEST)
 ```
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/4b35830f-9822-48c7-ab41-5bcfb1eea4f6)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/3c4e448b-87fa-4d83-9a96-328ddfdfc26f)
 - We read the .src file.
 ```
 read_sdc /openLANE_flow/designs/picorv32a/src/sky130/my_base.sdc
@@ -904,20 +904,21 @@ set_propagated_clock [all_clocks]
 report_checks -path_delay min_max -format full_clock_expanded -digits 4
 ```
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/f637e66a-db20-4cb6-8b84-75c11267c0eb)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/508a707b-3d38-4790-bada-b81cfef40a24)
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/184e7412-dc84-453c-b2f0-76b40e3588f4)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/9ceecf04-bba9-4340-9be1-662ebc43aff4)
 - Above results are displayed
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/7fd17b40-dfe1-4b1f-b597-fa5b5c911f74)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/94b9aeb2-3ae9-484e-a557-a630b981c70b)
 - We perform it again for a more accurate result
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/a563b159-c6bb-44ec-a44a-e406c16f5ed3)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/a406595c-ab13-4b88-bfa1-10ef1662cb10)
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/19435f73-e4c7-4663-9c21-0780cdd3f2a6)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/b4065d20-0e50-41e7-b881-b04010e9fbb8)
 - Above results are displayed
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/0415b653-7c0b-478d-91c3-e70d0e94d654)
+![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/0415b65![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/ed62a1b2-eb41-43b4-a57c-066895881624)
+3-7c0b-478d-91c3-e70d0e94d654)
 ```
 report_clock_skew -hold
 report clock_skew -setup
@@ -928,15 +929,15 @@ report clock_skew -setup
 
 **Build Power Distribution Network**
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/02713233-6b98-4280-b70b-c54aea1d9ddb)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/37fb4da1-4d2f-4018-82a3-f37b22e6d8ec)
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/965b7342-ccfa-41ee-9798-4180265a6119)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/cc2d20f4-31c3-494b-83cb-5af8bf5cfe5a)
 - To do this first we type
 ```
 gen_pdn
 ```
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/8467354c-875a-44e9-8ef1-f5be38bd0cc4)
+![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/dea84975-ce53-4e3c-96ed-ae021e428107)
 - We see that there is a change in the DEF.
 - To run the rounting we type ```run_routing```.
 - To check for DRC errors we need to check the 'tritonRoute.drc' folder
