@@ -823,7 +823,8 @@ magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs
 
 ![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/81cc9573-0873-411c-ba07-e78690f3792a)
 
-![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/05030e56-825c-42dd-8563-58c29192f7e9)
+![268932399-a71ce26a-58ba-42b0-bb91-25f628b34550 (1)](https://github.com/Aatish-Om/pes_pd/assets/125562864/78a8a289-1697-43c6-baa1-bc84d041ad9b)
+
 - The following is displayed.
 - Zooming into the design using 'z' we can see the sky130_vsdinv than we defined.
 - We have plugged in our custon cell in the OpenLANE flow.
@@ -917,8 +918,7 @@ report_checks -path_delay min_max -format full_clock_expanded -digits 4
 ![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/b4065d20-0e50-41e7-b881-b04010e9fbb8)
 - Above results are displayed
 
-![image](https://github.com/AniruddhaN2203/pes_pd/assets/142299140/0415b65![image](https://github.com/Aatish-Om/pes_pd/assets/125562864/ed62a1b2-eb41-43b4-a57c-066895881624)
-3-7c0b-478d-91c3-e70d0e94d654)
+
 ```
 report_clock_skew -hold
 report clock_skew -setup
